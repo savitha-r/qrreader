@@ -13,19 +13,23 @@ Qrreader::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
-  resource :member do
+  
+  namespace :member do
+    get 'sign_up' => 'users#sign_up'
+    get 'sign_in' => 'users#sign_in'
+    get 'sign_out' => 'users#sign_out'
+    
     resource :company do
-      resource :department
+      resources :department
     end
-    resource :employee
+    resources :employee
   end  
 
-  resource :admin do
-    resource :company
-    resource :member
-    resource :department
-    resource :employee
+  namespace :admin do
+    resources :company
+    resources :member
+    resources :department
+    resources :employee
   end
 
   # Example resource route with options:

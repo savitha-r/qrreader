@@ -1,5 +1,6 @@
 class DepartmentEmployee < ActiveRecord::Base
-	attr_accessible :department_id, :employee_id
-
+	
+	belongs_to :department
+	belongs_to :employee
 	validates_presence_of :department_id, :employee_id
 end

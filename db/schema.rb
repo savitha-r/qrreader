@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131212102516) do
+ActiveRecord::Schema.define(version: 20131213082846) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -34,12 +34,17 @@ ActiveRecord::Schema.define(version: 20131212102516) do
     t.integer  "user_id"
   end
 
+  add_index "companies", ["user_id"], name: "index_companies_on_user_id"
+
   create_table "department_employees", force: true do |t|
     t.integer  "department_id"
     t.integer  "employee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "department_employees", ["department_id"], name: "index_department_employees_on_department_id"
+  add_index "department_employees", ["employee_id"], name: "index_department_employees_on_employee_id"
 
   create_table "departments", force: true do |t|
     t.string   "name"
@@ -48,6 +53,8 @@ ActiveRecord::Schema.define(version: 20131212102516) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "departments", ["company_id"], name: "index_departments_on_company_id"
 
   create_table "employees", force: true do |t|
     t.string   "first_name"
@@ -67,6 +74,8 @@ ActiveRecord::Schema.define(version: 20131212102516) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "employees", ["company_id"], name: "index_employees_on_company_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
