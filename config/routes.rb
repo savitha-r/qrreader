@@ -26,10 +26,10 @@ Qrreader::Application.routes.draw do
   end  
 
   namespace :admin do
-    resources :company
-    resources :member
-    resources :department
-    resources :employee
+    resources :companies
+    resources :members
+    resources :departments
+    resources :employees
   end
 
   # Example resource route with options:
