@@ -1,0 +1,19 @@
+<h1>
+	Home </h1>
+
+	<%= button_to "Sign Up", sign_up_path, :method => :get %>
+
+
+	<%= form_tag sign_in_path, :method => :post do %>
+  <div class="field">
+    <%= label_tag :email %><br />
+    <%= text_field_tag :email %>
+  </div>
+  <div class="field">
+    <%= label_tag :password %><br />
+    <%= password_field_tag :password %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Sign In" %>
+  </div>
+<% end %>

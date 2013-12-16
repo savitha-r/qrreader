@@ -6,7 +6,8 @@ class Member::EmployeesController < ApplicationController
 	end
 
 	def create
-		@employee.update_attributes(params(:employee))
+		@employee = Employee.new(params[:employee])
+		@employee.save!
 	end
 
 	def edit

@@ -6,7 +6,8 @@ class Member::DepartmentsController < ApplicationController
 	end
 
 	def create
-		@department.update_attributes(params(:department))
+		@department = Department.new(params[:department])
+		@department.save!
 	end
 
 	def edit

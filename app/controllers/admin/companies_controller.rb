@@ -6,7 +6,8 @@ class Admin::CompaniesController < ApplicationController
 	end
 
 	def create
-		@company.update_attributes(params(:company))
+		@company = Company.new(params[:company])
+		@company.save!
 	end
 
 	def edit
