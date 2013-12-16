@@ -1,4 +1,5 @@
 class Member::UsersController < ApplicationController
+	
 
 	def sign_up
 		@member = User.new

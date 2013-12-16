@@ -31,5 +31,11 @@ class ApplicationController < ActionController::Base
 
   def current_user?(member)
       member == current_user
+  end
+
+  def signed_in_user
+    unless signed_in?
+      redirect_to root_path
     end
+  end
 end
