@@ -1,0 +1,13 @@
+<h1> Member Portal </h1>
+
+
+<%= link_to "Sign Out", sign_out_path, :method => :get %>
+
+	<% if @company %>
+	<%= button_to "Edit Company", edit_member_company_path, :method => :get %>
+	<% else %>
+	<%= button_to "Create Company", new_member_company_path, :method => :get %>
+	<% end %>
+
+	<%= button_to "Create Employee", new_member_employee_path, :method => :get %>
+	<%= button_to "Create Department", new_member_company_department_path, :method => :get %>

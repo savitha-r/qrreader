@@ -13,20 +13,20 @@ Qrreader::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  root to: "application#home"
+  root to: "home#index"
 
   get 'sign_up' => 'users#new'
   post 'sign_in' => 'sessions#sign_in'
   get 'sign_out' => 'sessions#sign_out'
 
-  resources :users do
-    get 'home'
-  end
+  get 'home' => "home#home"
+
+  resources :users
 
   #member in herit from application
   #create separate dashboard
   namespace :member do
-    root to: "member#home"
+    root to: "dashboard#index"
     resource :company do
       resources :departments
     end

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 	def create
 		@member = User.create!(user_profile_parameters)
 		login(@member)
-		redirect_to user_home_path(@member)
+		redirect_to home_path
 	end
 
 	def edit
@@ -22,12 +22,6 @@ class UsersController < ApplicationController
 	def destroy
 		@member = User.find(params[:id])
 		@member.destroy
-	end
-
-	def home
-		@member = User.find(params[:user_id])
-		@company = @member.company
-		
 	end
 
 	def index

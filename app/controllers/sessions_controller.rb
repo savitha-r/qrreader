@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 		@member = User.find_by_email(params[:email])
 		if @member.authenticate(params[:password])
 			login(@member)
-			redirect_to user_home_path(@member)
+			redirect_to home_path
 		else
 			redirect_to root_path
 		end
