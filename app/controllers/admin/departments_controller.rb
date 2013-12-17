@@ -1,6 +1,5 @@
 class Admin::DepartmentsController < ApplicationController
-	before_filter :signed_in_artist
-
+	
 	def new
 		@department = Department.new
 	end

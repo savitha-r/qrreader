@@ -19,8 +19,6 @@ Qrreader::Application.routes.draw do
   post 'sign_in' => 'sessions#sign_in'
   get 'sign_out' => 'sessions#sign_out'
 
-  get 'home' => "home#home"
-
   resources :users
 
   #member in herit from application

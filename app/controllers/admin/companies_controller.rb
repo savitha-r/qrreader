@@ -1,6 +1,5 @@
 class Admin::CompaniesController < ApplicationController
-	before_filter :signed_in_artist
-
+	
 	def new
 		@company = Company.new
 	end

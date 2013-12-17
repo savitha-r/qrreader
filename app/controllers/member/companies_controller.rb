@@ -1,5 +1,4 @@
 class Member::CompaniesController < ApplicationController
-	before_filter :signed_in_artist
 	before_filter :has_no_company, :only => [:new, :create]
 
 	def new
@@ -17,6 +16,15 @@ class Member::CompaniesController < ApplicationController
 
 	def update
 		@company.update_attributes(params[:company])
+	end
+
+	private
+
+	def has_no_company
+		unless current_user.company
+			return true
+		end
+		return false
 	end
 
 

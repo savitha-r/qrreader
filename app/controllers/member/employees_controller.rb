@@ -1,6 +1,5 @@
 class Member::EmployeesController < ApplicationController
-	before_filter :signed_in_artist
-
+	
 	def new
 		@employee = Employee.new
 	end

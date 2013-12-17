@@ -30,7 +30,7 @@ module SessionsHelper
   end
 
   def signed_in_user
-    unless signed_in?
+    unless logged_in?
       redirect_to root_path
     end
   end
