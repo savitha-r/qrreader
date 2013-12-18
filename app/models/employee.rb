@@ -8,4 +8,8 @@ class Employee < ActiveRecord::Base
 
 	validates_presence_of :first_name, :last_name
 	validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, :presence => true
+
+	def name
+		self.first_name + ' ' + self.last_name
+	end
 end

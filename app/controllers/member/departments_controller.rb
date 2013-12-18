@@ -20,12 +20,20 @@ class Member::DepartmentsController < ApplicationController
 	end
 
 	def update
-		@department.update_attributes(params[:department])
+		@department = Department.find_by_id(params[:id])
+		@department.update_attributes(department_profile_parameters)
+		if @department.errors.any?
+			render "edit"
+		else
+			flash[:notice] = "Department successfully updated."
+			redirect_to member_root_path
+		end
 	end
 
 	def destroy
 		@department = Department.find(params[:id])
 		@department.destroy
+		redirect_to member_root_path
 	end
 
 	private

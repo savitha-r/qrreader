@@ -18,11 +18,18 @@ class Member::CompaniesController < ApplicationController
 	end
 
 	def edit
-		@company = Company.find(params[:id])
+		@company = current_user.company
 	end
 
 	def update
-		@company.update_attributes(params[:company])
+		@company = current_user.company
+		@company.update_attributes(company_profile_parameters)
+		if @company.errors.any?
+			render "edit"
+		else
+			flash[:notice] = "Company successfully updated."
+			redirect_to member_root_path
+		end
 	end
 
 	private

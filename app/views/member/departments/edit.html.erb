@@ -1,0 +1,24 @@
+<%= form_for @department, :as => :department, :url => member_company_department_path(@department), :method => :put do |f| %>
+
+<% if @department && @department.errors.any? %>
+		<ul>
+  			<% @department.errors.full_messages.each do |msg| %>
+    			<li><%= msg %></li>
+  			<% end %>
+		</ul>
+	<% end %>
+
+	<div class="title-2"> 
+	      	<%= f.label :name, "Name*" %>
+	      	<%= f.text_field :name, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :description, "Description" %>
+	      	<%= f.text_area :description, :size => "30" %>
+	</div>
+	
+
+	<%= f.submit "Save", style: "width:120px; height:35px; background-color:#c25b39; border:1px solid #c25b39; color:#FFF; font-size:17px; float:left; margin-right:180px;" %>
+
+<% end %>

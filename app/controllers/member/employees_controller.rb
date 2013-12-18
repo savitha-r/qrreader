@@ -20,12 +20,20 @@ class Member::EmployeesController < ApplicationController
 	end
 
 	def update
-		@employee.update_attributes(params[:employee])
+		@employee = Employee.find_by_id(params[:id])
+		@employee.update_attributes(employee_profile_parameters)
+		if @employee.errors.any?
+			render "edit"
+		else
+			flash[:notice] = "Employee successfully updated."
+			redirect_to member_root_path
+		end
 	end
 
 	def destroy
 		@employee = Employee.find(params[:id])
 		@employee.destroy
+		redirect_to member_root_path
 	end
 
 	private
