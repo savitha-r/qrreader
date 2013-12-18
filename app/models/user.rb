@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
 
 	ROLES = ["member", "super admin"]
 
+	def is_super_admin?
+    	self.role == "super admin"
+    end
+
 	private
 
     def create_remember_token
@@ -19,4 +23,7 @@ class User < ActiveRecord::Base
     def assign_role
     	self.role = "member"
     end
+
+
+
 end

@@ -1,4 +1,4 @@
-class Member::CompaniesController < ApplicationController
+class Member::CompaniesController < Member::MembersController
 
 	before_filter :has_no_company, :only => [:new, :create]
 

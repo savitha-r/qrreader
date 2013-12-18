@@ -1,35 +1,30 @@
 <h1> Member Portal </h1>
 
 
+		<% if current_user.company %>
+			<%= button_to "Create Employee", new_member_employee_path, :method => :get %>
+			<%= button_to "Create Department", new_member_company_department_path, :method => :get %>
 
-	<% if @company %>
-	<%= button_to "Edit Company", edit_member_company_path, :method => :get %>
-	<% else %>
-	<%= button_to "Create Company", new_member_company_path, :method => :get %>
-	<% end %>
+			<h2>Company: <%= current_user.company.name %></h2>
+			<%= link_to "Edit Company", edit_member_company_path(current_user.company), :method => :get %>
 
-	<%= button_to "Create Employee", new_member_employee_path, :method => :get %>
-	<%= button_to "Create Department", new_member_company_department_path, :method => :get %>
+			<h2>Employees</h2>
 
+			<% current_user.company.employees.each do |e| %>
+				<div>Company: <%= e.name %></div>
+				<%= link_to "Edit Employee", edit_member_employee_path(e), :method => :get %>
+				<%= link_to "Delete Employee", member_employee_path(e), :method => :delete %>
+			<% end %>
+			<h2>Departments</h2>
 
-	<h2>Company: <%= current_user.company.name %></h2>
-	<%= link_to "Edit Company", edit_member_company_path(current_user.company), :method => :get %>
+			<% current_user.company.departments.each do |d| %>
+				<div>Department: <%= d.name %></div>
+				<%= link_to "Edit Department", edit_member_company_department_path(d), :method => :get %>
+				<%= link_to "Delete Department", member_company_department_path(d), :method => :delete %>
+			<% end %>
 
-	<h2>Employees</h2>
-
-	<% current_user.company.employees.each do |e| %>
-	<div>Company: <%= e.name %></div>
-	<%= link_to "Edit Employee", edit_member_employee_path(e), :method => :get %>
-	<%= link_to "Delete Employee", member_employee_path(e), :method => :delete %>
-	<% end %>
-
-
-	<h2>Departments</h2>
-
-	<% current_user.company.departments.each do |d| %>
-	<div>Department: <%= d.name %></div>
-	<%= link_to "Edit Department", edit_member_company_department_path(d), :method => :get %>
-	<%= link_to "Delete Department", member_company_department_path(d), :method => :delete %>
-	<% end %>
+		<% else %>
+			<%= button_to "Create Company", new_member_company_path, :method => :get %>
+		<% end %>
 
 

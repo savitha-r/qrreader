@@ -31,6 +31,7 @@ Qrreader::Application.routes.draw do
   end  
 
   namespace :admin do
+    root to: "dashboard#index"
     resources :users
     resources :companies
     resources :members

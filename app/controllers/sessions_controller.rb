@@ -5,7 +5,11 @@ class SessionsController < ApplicationController
 		@member = User.find_by_email(params[:email])
 		if @member.authenticate(params[:password])
 			login(@member)
-			redirect_to member_root_path
+			if current_user.is_super_admin?
+				redirect_to admin_root_path
+			else
+				redirect_to member_root_path				
+			end
 		else
 			redirect_to root_path
 		end

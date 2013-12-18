@@ -1,4 +1,4 @@
-class Member::DashboardController < ApplicationController
+class Member::DashboardController < Member::MembersController
 	def index
 	end
 end

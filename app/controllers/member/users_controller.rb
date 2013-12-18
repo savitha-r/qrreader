@@ -1,4 +1,4 @@
-class Member::UsersController < ApplicationController
+class Member::UsersController < Member::MembersController
 	before_filter :signed_in_user, :except => [:new, :create]
 
 
