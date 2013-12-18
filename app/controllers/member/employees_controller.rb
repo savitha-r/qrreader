@@ -5,6 +5,7 @@ class Member::EmployeesController < ApplicationController
 	end
 
 	def create
+		params[:employee][:company_id] = current_user.company.id
 		@employee = Employee.create(employee_profile_parameters)
 		if @employee.errors.any?
 			render "new"
@@ -30,7 +31,7 @@ class Member::EmployeesController < ApplicationController
 	private
 
 	def employee_profile_parameters
-    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description)
+    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description, :company_id)
   	end
 
 end

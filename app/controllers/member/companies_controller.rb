@@ -7,6 +7,7 @@ class Member::CompaniesController < ApplicationController
 	end
 
 	def create
+		params[:company][:user_id] = current_user.id
 		@company = Company.create(company_profile_parameters)
 		if @company.errors.any?
 			render "new"
@@ -27,13 +28,12 @@ class Member::CompaniesController < ApplicationController
 	private
 
 	def company_profile_parameters
-    	params.require(:company).permit(:name, :description, :logo, :email, :address, :fax, :phone, :phone2, :postal_code, :verified, :banned, :published)
+    	params.require(:company).permit(:name, :description, :logo, :email, :address, :fax, :phone, :phone2, :postal_code, :verified, :banned, :published, :user_id)
   	end
 
   	def has_no_company
-  		unless current_user.company
-  			return true
+  		if current_user.company
+  			redirect_to member_root_path
   		end
-  		return false
   	end
 end

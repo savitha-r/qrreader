@@ -5,7 +5,7 @@ class Member::DepartmentsController < ApplicationController
 	end
 
 	def create
-		
+		params[:department][:company_id] = current_user.company.id
 		@department = Department.create(department_profile_parameters)
 		if @department.errors.any?
 			render "new"
@@ -31,7 +31,7 @@ class Member::DepartmentsController < ApplicationController
 	private
 
 	def department_profile_parameters
-    	params.require(:department).permit(:name, :description)
+    	params.require(:department).permit(:name, :description, :company_id)
   	end
 
 end
