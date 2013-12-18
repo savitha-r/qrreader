@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-	has_one :company
+	has_one :company, :dependent => :destroy
 
 	has_secure_password
 
 	validates_presence_of :name, :password_digest, :email
+
+
 
 	validates_uniqueness_of :email
 	before_create :create_remember_token, :assign_role
@@ -12,6 +14,10 @@ class User < ActiveRecord::Base
 
 	def is_super_admin?
     	self.role == "super admin"
+    end
+
+    def get_members
+    	User.where("role == 'member'")
     end
 
 	private

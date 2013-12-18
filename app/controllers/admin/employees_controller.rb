@@ -1,4 +1,4 @@
-class Admin::EmployeesController < ApplicationController
+class Admin::EmployeesController < Admin::AdminsController
 	
 	def new
 		@employee = Employee.new

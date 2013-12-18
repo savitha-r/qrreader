@@ -1,4 +1,4 @@
-class Admin::DepartmentsController < ApplicationController
+class Admin::DepartmentsController < Admin::AdminsController
 	
 	def new
 		@department = Department.new

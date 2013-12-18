@@ -22,12 +22,19 @@ class Member::UsersController < Member::MembersController
 
 	def update
 		@member = current_user
-		@member.update_attributes(params[:user])
+		@member.update_attributes(user_profile_parameters)
+		if @member.errors.any?
+			render "edit"
+		else
+			flash[:notice] = "User successfully updated."
+			redirect_to member_root_path
+		end
 	end
 
 	def destroy
 		@member = current_user
 		@member.destroy
+		redirect_to member_root_path
 	end
 
 	private

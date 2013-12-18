@@ -32,12 +32,15 @@ Qrreader::Application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
-    resources :users
-    resources :companies
-    resources :members
-    resources :departments
-    resources :employees
+    resources :users do
+      resources :companies do
+        resources :departments
+        resources :employees
+      end
+    end
   end
+    
+  
 
   # Example resource route with options:
   #   resources :products do
