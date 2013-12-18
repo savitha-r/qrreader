@@ -1,0 +1,55 @@
+<%= form_for @employee, :as => :employee, :url => admin_user_company_employee_path(@user,@user.company,@employee), :method => :put do |f| %>
+
+<% if @employee && @employee.errors.any? %>
+		<ul>
+  			<% @employee.errors.full_messages.each do |msg| %>
+    			<li><%= msg %></li>
+  			<% end %>
+		</ul>
+	<% end %>
+
+	<div class="title-2"> 
+	      	<%= f.label :first_name, "First Name*" %>
+	      	<%= f.text_field :first_name, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :last_name, "Last Name*" %>
+	      	<%= f.text_field :last_name, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :email, "Email*" %>
+	      	<%= f.text_field :email, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :mobile, "Mobile" %>
+	      	<%= f.text_field :mobile %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :office_phone, "Office Phone" %>
+	      	<%= f.text_field :office_phone, :size => "30" %>
+	</div>
+
+
+	<div class="title-2"> 
+	      	<%= f.label :fax, "Fax" %>
+	      	<%= f.text_field :fax, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :title, "Title" %>
+	      	<%= f.text_field :title %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :description, "Description" %>
+	      	<%= f.text_field :description, :size => "30" %>
+	</div>
+	
+
+	<%= f.submit "Save", style: "width:120px; height:35px; background-color:#c25b39; border:1px solid #c25b39; color:#FFF; font-size:17px; float:left; margin-right:180px;" %>
+
+<% end %>

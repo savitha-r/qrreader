@@ -6,10 +6,10 @@ class Admin::CompaniesController < Admin::AdminsController
 	end
 
 	def create
-		binding.pry
 		params[:company][:user_id] = params[:user_id]
 		@company = Company.create(company_profile_parameters)
 		if @company.errors.any?
+			@user = User.find_by_id(params[:user_id])
 			render "new"
 		else
 			flash[:notice] = "Company successfully created."
@@ -26,6 +26,7 @@ class Admin::CompaniesController < Admin::AdminsController
 		@company = Company.find(params[:id])
 		@company.update_attributes(company_profile_parameters)
 		if @company.errors.any?
+			@user = User.find_by_id(params[:user_id])
 			render "edit"
 		else
 			flash[:notice] = "Company successfully updated."

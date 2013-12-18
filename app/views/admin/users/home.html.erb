@@ -1,0 +1,33 @@
+			<h4><%= @user.name %></h4>
+			<%= link_to "Edit User", edit_admin_user_path(@user), :method => :get %>
+				
+			<% if @user.company %>
+				<h4>Company: <%= @user.company.name %></h4>
+				<%= link_to "Edit User Company", edit_admin_user_company_path(@user,@user.company), :method => :get %>
+			
+
+			<h2>Employees</h2>
+
+			<%= button_to "Create Employee", new_admin_user_company_employee_path(@user,@user.company), :method => :get %>
+
+			<% @user.company.employees.each do |e| %>
+				<div>Company: <%= e.name %></div>
+				<%= link_to "Edit Employee", edit_admin_user_company_employee_path(@user,@user.company,e), :method => :get %>
+				<%= link_to "Delete Employee", admin_user_company_employee_path(@user,@user.company,e), :method => :delete %>
+			<% end %>
+			<h2>Departments</h2>
+
+			<%= button_to "Create Department", new_admin_user_company_department_path(@user,@user.company), :method => :get %>
+
+			<% @user.company.departments.each do |d| %>
+				<div>Department: <%= d.name %></div>
+				<%= link_to "Edit Department", edit_admin_user_company_department_path(@user,@user.company,d), :method => :get %>
+				<%= link_to "Delete Department", admin_user_company_department_path(@user,@user.company,d), :method => :delete %>
+			<% end %>
+
+			<% else %>
+				<%= link_to "Create Company", new_admin_user_company_path(@user), :method => :get %>
+			<% end %>
+
+
+

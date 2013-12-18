@@ -10,6 +10,11 @@
 <header>
 	<% if logged_in? %>
 		<%= link_to "Sign Out", sign_out_path, :method => :get %>
+    <% if current_user.is_super_admin? %>
+      <%= link_to "Home", admin_root_path, :method => :get %>
+    <% else %>
+      <%= link_to "Sign Out", member_root_path, :method => :get %>
+    <% end %>      
 	<% end %>
 	<% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %></div>

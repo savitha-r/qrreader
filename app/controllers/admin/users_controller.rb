@@ -36,6 +36,10 @@ class Admin::UsersController < Admin::AdminsController
 		redirect_to admin_root_path
 	end
 
+	def home
+		@user = User.find_by_id(params[:user_id])
+	end
+
 	private
   	def user_profile_parameters
     	params.require(:user).permit(:name, :password, :password_confirmation, :email)

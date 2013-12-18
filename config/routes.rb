@@ -33,6 +33,7 @@ Qrreader::Application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     resources :users do
+      get 'home' => "users#home"
       resources :companies do
         resources :departments
         resources :employees
