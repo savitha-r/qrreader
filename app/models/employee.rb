@@ -1,6 +1,5 @@
 class Employee < ActiveRecord::Base
-	attr_accessible :first_name, :last_name, :email, :mobile, :office_phone, :fax, :title, :description, :urls
-
+	
 	belongs_to :company
 	has_many :department_employees
 	has_many :departments, :through => :department_employees

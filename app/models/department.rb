@@ -5,4 +5,7 @@ class Department < ActiveRecord::Base
 	has_many :employees, :through => :department_employees
 
 	validates :name, presence: true
+
+
+
 end

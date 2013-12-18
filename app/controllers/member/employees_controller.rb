@@ -5,8 +5,13 @@ class Member::EmployeesController < ApplicationController
 	end
 
 	def create
-		@employee = Employee.new(params[:employee])
-		@employee.save!
+		@employee = Employee.create(employee_profile_parameters)
+		if @employee.errors.any?
+			render "new"
+		else
+			flash[:notice] = "Employee successfully created."
+			redirect_to member_root_path
+		end
 	end
 
 	def edit
@@ -21,5 +26,11 @@ class Member::EmployeesController < ApplicationController
 		@employee = Employee.find(params[:id])
 		@employee.destroy
 	end
+
+	private
+
+	def employee_profile_parameters
+    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description)
+  	end
 
 end

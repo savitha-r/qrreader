@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+	before_filter :signed_in_user, :except => [:sign_in]
 
 	def sign_in
 		@member = User.find_by_email(params[:email])

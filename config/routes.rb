@@ -15,15 +15,14 @@ Qrreader::Application.routes.draw do
   #   resources :products
   root to: "home#index"
 
-  get 'sign_up' => 'users#new'
+  get 'sign_up' => 'member/users#new'
   post 'sign_in' => 'sessions#sign_in'
   get 'sign_out' => 'sessions#sign_out'
-
-  resources :users
 
   #member in herit from application
   #create separate dashboard
   namespace :member do
+    resource :user
     root to: "dashboard#index"
     resource :company do
       resources :departments
@@ -32,6 +31,7 @@ Qrreader::Application.routes.draw do
   end  
 
   namespace :admin do
+    resources :users
     resources :companies
     resources :members
     resources :departments

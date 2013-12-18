@@ -1,14 +1,13 @@
-<%= form_for @member, :html => {:multipart => true } do |f| %>
-
-	<% if @member.errors.any? %>
+<%= form_for @member, :as => :user, :url => member_user_path(@member), :method => :post, :html => {:multipart => true } do |f| %>
+	
+	<% if @member && @member.errors.any? %>
 		<ul>
   			<% @member.errors.full_messages.each do |msg| %>
     			<li><%= msg %></li>
   			<% end %>
 		</ul>
 	<% end %>
-
-
+	
 	<div class="title-2"> 
 	      	<%= f.label :name, "Name*" %>
 	      	<%= f.text_field :name, :size => "30" %>
@@ -28,7 +27,6 @@
 	      	<%= f.label :password_confirmation, "Password Confirmation*" %>
 	      	<%= f.text_field :password_confirmation, :size => "30" %>
 	</div>
-
 
 	<%= f.submit "Submit", style: "width:120px; height:35px; background-color:#c25b39; border:1px solid #c25b39; color:#FFF; font-size:17px; float:left; margin-right:180px;" %>
 

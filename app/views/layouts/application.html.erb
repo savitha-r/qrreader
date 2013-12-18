@@ -7,7 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header>
+	<% if logged_in? %>
+		<%= link_to "Sign Out", sign_out_path, :method => :get %>
+	<% end %>
+	<% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
 
+</header>
 <%= yield %>
 
 </body>

@@ -1,0 +1,76 @@
+<%= form_for @company, :as => :company, :url => member_company_path(@company), :method => :post do |f| %>
+
+
+	<% if @company && @company.errors.any? %>
+		<ul>
+  			<% @company.errors.full_messages.each do |msg| %>
+    			<li><%= msg %></li>
+  			<% end %>
+		</ul>
+	<% end %>
+	
+	<div class="title-2"> 
+	      	<%= f.label :name, "Name*" %>
+	      	<%= f.text_field :name, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :description, "Description" %>
+	      	<%= f.text_field :description %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :logo, "Logo*" %>
+	      	<%= f.file_field :logo, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :verified, "Verified" %>
+	      	<%= f.check_box :verified, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :banned, "Banned" %>
+	      	<%= f.check_box :banned, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :published, "Published" %>
+	      	<%= f.check_box :published, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :email, "Email" %>
+	      	<%= f.text_field :email, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :address, "Address" %>
+	      	<%= f.text_area :address %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :fax, "Fax" %>
+	      	<%= f.text_field :fax, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :phone, "Phone" %>
+	      	<%= f.text_field :phone, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :phone2, "Phone 2" %>
+	      	<%= f.text_field :phone2, :size => "30" %>
+	</div>
+
+	<div class="title-2"> 
+	      	<%= f.label :postal_code, "Postal Code" %>
+	      	<%= f.text_field :postal_code, :size => "30" %>
+	</div>
+
+	
+
+	<%= f.submit "Submit", style: "width:120px; height:35px; background-color:#c25b39; border:1px solid #c25b39; color:#FFF; font-size:17px; float:left; margin-right:180px;" %>
+
+<% end %>

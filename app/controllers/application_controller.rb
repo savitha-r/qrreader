@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 	
   include SessionsHelper
 
+  
+
   #shd not be here since controller is visible everywhere
   
 

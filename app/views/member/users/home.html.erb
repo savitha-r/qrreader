@@ -1,6 +1,7 @@
 <h1> Member Portal </h1>
 
 
+<%= link_to "Sign Out", sign_out_path, :method => :get %>
 
 	<% if @company %>
 	<%= button_to "Edit Company", edit_member_company_path, :method => :get %>
