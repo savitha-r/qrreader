@@ -1,4 +1,4 @@
-<%= form_for @department, :as => :department, :url => admin_user_company_departments_path(@user,@company,@department), :method => :post do |f| %>
+<%= form_for @department, :as => :department, :url => admin_company_departments_path(@company,@department), :method => :post do |f| %>
 
 <% if @department && @department.errors.any? %>
 		<ul>

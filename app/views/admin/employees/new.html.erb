@@ -1,4 +1,4 @@
-<%= form_for @employee, :as => :employee, :url => admin_user_company_employees_path(@user,@company,@employee), :method => :post do |f| %>
+<%= form_for @employee, :as => :employee, :url => admin_company_employees_path(@company,@employee), :method => :post do |f| %>
 
 <% if @employee && @employee.errors.any? %>
 		<ul>

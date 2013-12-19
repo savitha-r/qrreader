@@ -15,14 +15,14 @@ class Admin::EmployeesController < Admin::AdminsController
 			render "new"
 		else
 			flash[:notice] = "Employee successfully created."
-			redirect_to admin_user_home_path(User.find(params[:user_id]))
+			redirect_to admin_user_user_home_path(@employee.company.user)
 		end
 	end
 
 	def edit
 		@employee = Employee.find(params[:id])
-		@company = Company.find(params[:company_id])
-		@user = User.find(params[:user_id])
+		@company = @employee.company
+		@user = @employee.company.user
 	end
 
 	def update
@@ -34,14 +34,14 @@ class Admin::EmployeesController < Admin::AdminsController
 			render "edit"
 		else
 			flash[:notice] = "Employee successfully updated."
-			redirect_to admin_user_home_path(User.find(params[:user_id]))
+			redirect_to admin_user_user_home_path(@employee.company.user)
 		end
 	end
 
 	def destroy
 		@employee = Employee.find(params[:id])
 		@employee.destroy
-		redirect_to admin_user_home_path(User.find(params[:user_id]))
+		redirect_to admin_user_user_home_path(@employee.company.user)
 	end
 
 	private

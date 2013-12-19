@@ -1,6 +1,7 @@
 class Admin::CompaniesController < Admin::AdminsController
 	
 	def new
+		#@user.company.build
 		@user = User.find_by_id(params[:user_id])
 		@company = Company.new
 	end
@@ -19,7 +20,7 @@ class Admin::CompaniesController < Admin::AdminsController
 
 	def edit
 		@company = Company.find(params[:id])
-		@user = User.find_by_id(params[:user_id])
+		@user = User.find_by_id(params[:user_id])#maintain relationship
 	end
 
 	def update
@@ -31,6 +32,7 @@ class Admin::CompaniesController < Admin::AdminsController
 		else
 			flash[:notice] = "Company successfully updated."
 			redirect_to admin_root_path
+			#rediecrt to index page of companies or show method
 		end
 	end
 

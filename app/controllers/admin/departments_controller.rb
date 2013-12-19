@@ -15,7 +15,7 @@ class Admin::DepartmentsController < Admin::AdminsController
 			render "new"
 		else
 			flash[:notice] = "Department successfully created."
-			redirect_to admin_user_home_path(User.find(params[:user_id]))
+			redirect_to admin_user_user_home_path(@department.company.user)
 		end
 	end
 
@@ -34,14 +34,14 @@ class Admin::DepartmentsController < Admin::AdminsController
 			render "edit"
 		else
 			flash[:notice] = "Department successfully updated."
-			redirect_to admin_user_home_path(User.find(params[:user_id]))
+			redirect_to admin_user_user_home_path(@department.company.user)
 		end
 	end
 
 	def destroy
 		@department = Department.find(params[:id])
 		@department.destroy
-		redirect_to admin_user_home_path(User.find(params[:user_id]))
+		redirect_to admin_user_user_home_path(@department.company.user)
 	end
 
 	private

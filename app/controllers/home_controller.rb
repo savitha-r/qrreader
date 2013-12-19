@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
 	before_filter :signed_in_user, :except => [:index]
+	#skip_before
 
 	def home
 		@member = current_user
