@@ -3,17 +3,16 @@ class Member::CompaniesController < Member::MembersController
 	before_filter :has_no_company, :only => [:new, :create]
 
 	def new
-		@company = Company.new
+		@company = current_user.build_company
 	end
 
 	def create
-		params[:company][:user_id] = current_user.id
-		@company = Company.create(company_profile_parameters)
-		if @company.errors.any?
-			render "new"
-		else
+		@company = current_user.build_company(company_profile_parameters)
+		if @company.save
 			flash[:notice] = "Company successfully created."
 			redirect_to member_root_path
+		else
+			render "new"
 		end
 	end
 
@@ -24,11 +23,11 @@ class Member::CompaniesController < Member::MembersController
 	def update
 		@company = current_user.company
 		@company.update_attributes(company_profile_parameters)
-		if @company.errors.any?
-			render "edit"
-		else
+		if @company.save
 			flash[:notice] = "Company successfully updated."
 			redirect_to member_root_path
+		else
+			render "edit"
 		end
 	end
 

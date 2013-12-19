@@ -1,7 +1,6 @@
 class Admin::UsersController < Admin::AdminsController
 
 	def new
-		binding.pry
 		@member = User.new
 	end
 
@@ -16,28 +15,28 @@ class Admin::UsersController < Admin::AdminsController
 	end
 
 	def edit
-		@member = User.find_by_id(params[:id])
+		@member = get_entity User.find_by_id(params[:id])
 	end
 
 	def update
-		@member = User.find_by_id(params[:id])
+		@member = get_entity User.find_by_id(params[:id])
 		@member.update_attributes(user_profile_parameters)
-		if @member.errors.any?
-			render "edit"
-		else
+		if @member.save
 			flash[:notice] = "User successfully updated."
 			redirect_to admin_root_path
+		else
+			render "edit"
 		end
 	end
 
 	def destroy
-		@member = User.find_by_id(params[:id])
+		@member = get_entity User.find_by_id(params[:id])
 		@member.destroy
 		redirect_to admin_root_path
 	end
 
 	def home
-		@user = User.find_by_id(params[:user_id])
+		@user = get_entity User.find_by_id(params[:user_id])
 	end
 
 	private

@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 	before_filter :signed_in_user, :except => [:sign_in]
 
 	def sign_in
-		@member = User.find_by_email(params[:email])
+		@member = get_entity User.find_by_email(params[:email])
 		if @member.authenticate(params[:password])
 			login(@member)
 			if current_user.is_super_admin?

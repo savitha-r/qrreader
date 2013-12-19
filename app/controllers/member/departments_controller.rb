@@ -1,37 +1,36 @@
 class Member::DepartmentsController < Member::MembersController
 	
 	def new
-		@department = Department.new
+		@department = current_user.company.departments.build
 	end
 
 	def create
-		params[:department][:company_id] = current_user.company.id
-		@department = Department.create(department_profile_parameters)
-		if @department.errors.any?
-			render "new"
-		else
+		@department = current_user.company.departments.build(department_profile_parameters)
+		if @department.save
 			flash[:notice] = "Department successfully created."
 			redirect_to member_root_path
+		else
+			render "new"
 		end
 	end
 
 	def edit
-		@department = Department.find(params[:id])
+		@department = get_entity Department.find_by_id(params[:id])
 	end
 
 	def update
-		@department = Department.find_by_id(params[:id])
+		@department = get_entity Department.find_by_id(params[:id])
 		@department.update_attributes(department_profile_parameters)
-		if @department.errors.any?
-			render "edit"
-		else
+		if @department.save
 			flash[:notice] = "Department successfully updated."
 			redirect_to member_root_path
+		else
+			render "edit"
 		end
 	end
 
 	def destroy
-		@department = Department.find(params[:id])
+		@department = get_entity Department.find_by_id(params[:id])
 		@department.destroy
 		redirect_to member_root_path
 	end

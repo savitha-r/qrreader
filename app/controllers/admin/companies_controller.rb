@@ -1,43 +1,40 @@
 class Admin::CompaniesController < Admin::AdminsController
 	
 	def new
-		#@user.company.build
-		@user = User.find_by_id(params[:user_id])
-		@company = Company.new
+		@user = get_entity User.find_by_id(params[:user_id])
+		@company = @user.build_company
 	end
 
 	def create
-		params[:company][:user_id] = params[:user_id]
-		@company = Company.create(company_profile_parameters)
-		if @company.errors.any?
-			@user = User.find_by_id(params[:user_id])
-			render "new"
-		else
+		@user = get_entity User.find_by_id(params[:user_id])
+		@company = @user.build_company(company_profile_parameters)
+		if @company.save
 			flash[:notice] = "Company successfully created."
 			redirect_to admin_root_path
+		else
+			render "new"
 		end
 	end
 
 	def edit
-		@company = Company.find(params[:id])
-		@user = User.find_by_id(params[:user_id])#maintain relationship
+		@company = get_entity Company.find_by_id(params[:id])
+		@user = @company.user
 	end
 
 	def update
-		@company = Company.find(params[:id])
+		@company = get_entity Company.find_by_id(params[:id])
 		@company.update_attributes(company_profile_parameters)
-		if @company.errors.any?
-			@user = User.find_by_id(params[:user_id])
-			render "edit"
-		else
+		if @company.save
 			flash[:notice] = "Company successfully updated."
-			redirect_to admin_root_path
+			redirect_to admin_root_path			
+		else
+			render "edit"			
 			#rediecrt to index page of companies or show method
 		end
 	end
 
 	def destroy
-		@company = Company.find(params[:id])
+		@company = get_entity Company.find_by_id(params[:id])
 		@company.destroy
 		redirect_to admin_root_path
 	end

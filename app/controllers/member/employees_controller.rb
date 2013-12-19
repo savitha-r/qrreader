@@ -1,37 +1,36 @@
 class Member::EmployeesController < Member::MembersController
 	
 	def new
-		@employee = Employee.new
+		@employee = current_user.company.employees.build
 	end
 
 	def create
-		params[:employee][:company_id] = current_user.company.id
-		@employee = Employee.create(employee_profile_parameters)
-		if @employee.errors.any?
-			render "new"
-		else
+		@employee = current_user.company.employees.build(employee_profile_parameters)
+		if @employee.save
 			flash[:notice] = "Employee successfully created."
 			redirect_to member_root_path
+		else
+			render "new"
 		end
 	end
 
 	def edit
-		@employee = Employee.find(params[:id])
+		@employee = get_entity Employee.find_by_id(params[:id])
 	end
 
 	def update
-		@employee = Employee.find_by_id(params[:id])
+		@employee = get_entity Employee.find_by_id(params[:id])
 		@employee.update_attributes(employee_profile_parameters)
-		if @employee.errors.any?
-			render "edit"
-		else
+		if @employee.save
 			flash[:notice] = "Employee successfully updated."
 			redirect_to member_root_path
+		else
+			render "edit"
 		end
 	end
 
 	def destroy
-		@employee = Employee.find(params[:id])
+		@employee = get_entity Employee.find_by_id(params[:id])
 		@employee.destroy
 		redirect_to member_root_path
 	end

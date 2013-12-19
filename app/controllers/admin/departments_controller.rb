@@ -1,45 +1,40 @@
 class Admin::DepartmentsController < Admin::AdminsController
 	
 	def new
-		@department = Department.new
-		@company = Company.find_by_id(params[:company_id])
-		@user = User.find_by_id(params[:user_id])
+		@company = get_entity Company.find_by_id(params[:company_id])
+		@department = @company.build_department
 	end
 
 	def create
-		params[:department][:company_id] = params[:company_id]
-		@department = Department.create(department_profile_parameters)
-		if @department.errors.any?
-			@user = User.find_by_id(params[:user_id])
-			@company =Company.find_by_id(params[:company_id])
-			render "new"
-		else
+		@company = get_entity Company.find_by_id(params[:company_id])
+		@department = @user.build_department(department_profile_parameters)
+		if @department.save
 			flash[:notice] = "Department successfully created."
-			redirect_to admin_user_user_home_path(@department.company.user)
+			redirect_to admin_root_path
+		else
+			render "new"
 		end
 	end
 
 	def edit
-		@department = Department.find(params[:id])
-		@company = Company.find_by_id(params[:company_id])
-		@user = User.find_by_id(params[:user_id])
+		@department = get_entity Department.find_by_id(params[:id])
+		@company = @department.company
 	end
 
 	def update
-		@department = Department.find_by_id(params[:id])
-		@department.update_attributes(department_profile_parameters)
-		if @department.errors.any?
-			@user = User.find_by_id(params[:user_id])
-			@company =Company.find_by_id(params[:company_id])
-			render "edit"
-		else
+		@department = get_entity Department.find_by_id(params[:id])
+		@department.update_attributes(company_profile_parameters)
+		if @department.save
 			flash[:notice] = "Department successfully updated."
-			redirect_to admin_user_user_home_path(@department.company.user)
+			redirect_to admin_root_path			
+		else
+			render "edit"			
+			#rediecrt to index page of companies or show method
 		end
 	end
 
 	def destroy
-		@department = Department.find(params[:id])
+		@department = get_entity Department.find_by_id(params[:id])
 		@department.destroy
 		redirect_to admin_user_user_home_path(@department.company.user)
 	end

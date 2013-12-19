@@ -5,11 +5,20 @@ class ApplicationController < ActionController::Base
   before_filter :signed_in_user
 	
   include SessionsHelper
-
   
-
-  #shd not be here since controller is visible everywhere
+  rescue_from Errors::NotFound, :with => :custom_error
   
+ 
+  def get_entity entity
+  	raise Errors::NotFound unless entity.present?
+    return entity
+  end
 
+  def custom_error
+  	render "public/404", :status => 404
+  end
   
 end
+
+
+

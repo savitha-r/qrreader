@@ -13,7 +13,7 @@
     <% if current_user.is_super_admin? %>
       <%= link_to "Home", admin_root_path, :method => :get %>
     <% else %>
-      <%= link_to "Sign Out", member_root_path, :method => :get %>
+      <%= link_to "Home", member_root_path, :method => :get %>
     <% end %>      
 	<% end %>
 	<% flash.each do |key, value| %>
