@@ -9,7 +9,17 @@ class Employee < ActiveRecord::Base
 	validates_presence_of :first_name, :last_name
 	validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, :presence => true
 
+	after_create :assign_hashed_id
+
+	PRIME = 2654435761
+  	MAXID = 2**12-1
+
 	def name
 		self.first_name + ' ' + self.last_name
+	end
+
+	def assign_hashed_id
+		self.hashed_id = (self.id * MAXID & PRIME)
+		self.save
 	end
 end

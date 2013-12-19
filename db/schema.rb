@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216102147) do
+ActiveRecord::Schema.define(version: 20131219084105) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20131216102147) do
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "hashed_id"
   end
 
   add_index "employees", ["company_id"], name: "index_employees_on_company_id"
