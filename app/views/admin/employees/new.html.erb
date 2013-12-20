@@ -51,7 +51,7 @@
 
 	<%= f.fields_for :departments do |i| %>
     	<div class="field">
-      	<%= i.label :name, "Department" %><br />
+      	<%= i.label :name, "Departments" %><br />
       	<%= i.collection_select(:id, Department.all, :id, :name,{}, {:multiple => true}) %>
     	</div>
   	<% end %>
