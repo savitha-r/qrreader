@@ -2,12 +2,12 @@ class Admin::DepartmentsController < Admin::AdminsController
 	
 	def new
 		@company = get_entity Company.find_by_id(params[:company_id])
-		@department = @company.build_department
+		@department = @company.departments.build
 	end
 
 	def create
 		@company = get_entity Company.find_by_id(params[:company_id])
-		@department = @user.build_department(department_profile_parameters)
+		@department = @comapany.departments.build(department_profile_parameters)
 		if @department.save
 			flash[:notice] = "Department successfully created."
 			redirect_to admin_root_path

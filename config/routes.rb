@@ -18,7 +18,7 @@ Qrreader::Application.routes.draw do
   get 'sign_up' => 'member/users#new'
   post 'sign_in' => 'sessions#sign_in'
   get 'sign_out' => 'sessions#sign_out'
-  get '/:eid' => 'home#employee'
+  
 
   #member in herit from application
   #create separate dashboard
@@ -42,7 +42,16 @@ Qrreader::Application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :companies
+      resources :departments
+      resources :employees
+    end
+  end
 
+  get '/:eid' => 'home#employee'
   
 
   # Example resource route with options:

@@ -3,6 +3,8 @@ class Employee < ActiveRecord::Base
 	belongs_to :company
 	has_many :department_employees
 	has_many :departments, :through => :department_employees
+	accepts_nested_attributes_for :department_employees, :allow_destroy => true
+	accepts_nested_attributes_for :departments, :allow_destroy => true
 
 	has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
 

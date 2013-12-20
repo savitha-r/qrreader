@@ -2,6 +2,7 @@ class Member::EmployeesController < Member::MembersController
 	
 	def new
 		@employee = current_user.company.employees.build
+		current_user.company.departments.build
 	end
 
 	def create
@@ -16,6 +17,7 @@ class Member::EmployeesController < Member::MembersController
 
 	def edit
 		@employee = get_entity Employee.find_by_id(params[:id])
+		current_user.company.departments.build
 	end
 
 	def update
@@ -38,7 +40,7 @@ class Member::EmployeesController < Member::MembersController
 	private
 
 	def employee_profile_parameters
-    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description, :company_id)
+    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description, :company_id,  department_attributes: [:id])
   	end
 
 end

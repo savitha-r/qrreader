@@ -1,13 +1,14 @@
 class Admin::EmployeesController < Admin::AdminsController
 	
 	def new
-		@company = params[:company_id]
-		@employee = @company.build_employee
+		@company = get_entity Company.find_by_id(params[:company_id])
+		@employee = @company.employees.build
+		@company.departments.build
 	end
 
 	def create
 		@company = get_entity Company.find_by_id(params[:company_id])
-		@employee = @user.build_employee(employee_profile_parameters)
+		@employee = @company.employees.build(employee_profile_parameters)
 		if @employee.save
 			flash[:notice] = "Employee successfully created."
 			redirect_to admin_root_path
@@ -19,6 +20,7 @@ class Admin::EmployeesController < Admin::AdminsController
 	def edit
 		@employee = get_entity Employee.find_by_id(params[:id])
 		@company = @employee.company
+		@company.departments.build
 	end
 
 	def update
@@ -42,6 +44,6 @@ class Admin::EmployeesController < Admin::AdminsController
 	private
 
 	def employee_profile_parameters
-    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description, :company_id)
+    	params.require(:employee).permit(:first_name, :last_name, :email, :office_phone, :mobile, :fax, :title, :description, :company_id, department_attributes: [:id])
   	end
 end
