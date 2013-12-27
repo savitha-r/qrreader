@@ -1,9 +1,9 @@
 namespace :employees do
   desc "TODO"
-  task assign_hashed_ids: :environment do
+  task assign_secure_ids: :environment do
 
   	Employee.all.each do |e|
-  		e.assign_hashed_id
+  		e.assign_secure_id
   	end
 
   end

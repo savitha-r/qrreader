@@ -1,11 +1,11 @@
-class Api::V1::DepartmentsController < Api::V1::ApiController
+class Api::V1::DepartmentsController < Api::ApiController
 
 	def create
 		@department = current_user.company.departments.build(department_profile_parameters)
 		if @department.save
-			render json: {:status => "success", :department => @department }
+			render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :department => @department }, :status_code => 200
 		else
-			render json: {:errors => "Error", :message => @department.errors.full_messages }
+			render_errors(Api::ApiController::INVALID, @department.errors)
 		end
 	end
 
@@ -13,27 +13,27 @@ class Api::V1::DepartmentsController < Api::V1::ApiController
 		@department = get_entity Department.find_by_id(params[:id])
 		@department.update_attributes(department_profile_parameters)
 		if @department.save
-			render json: {:status => "success", :department => @department }
+			render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :department => @department }, :status_code => 200
 		else
-			render json: {:errors => "Error", :message => @department.errors.full_messages }
+			render_errors(Api::ApiController::INVALID, @department.errors)
 		end
 	end
 
 	def show
 		@department = get_entity Department.find_by_id(params[:id])
-		render json: {:status => "success", :department => @department }
+		render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :department => @department }, :status_code => 200
 	end
 
 	def all_departments
 		@departments = current_user.departments
-		render json: {:status => "success", :departments => @departments}
+		render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :department => @departments }, :status_code => 200
 	end
 
 
 	def destroy
 		@department = get_entity Department.find_by_id(params[:id])
 		@department.destroy
-		render json: {:status => "success", :department => "Department deleted successfully." }
+		render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :message => "Department deleted successfully." }, :status_code => 200
 	end
 
 	private

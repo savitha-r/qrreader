@@ -1,11 +1,11 @@
-class Api::V1::EmployeesController < Api::V1::ApiController
+class Api::V1::EmployeesController < Api::ApiController
 
 	def create
 		@employee = current_user.company.employees.build(employee_profile_parameters)
 		if @employee.save
-			render json: {:status => "success", :employee => @employee }
+			rrender json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :employee => @employee }, :status_code => 200
 		else
-			render json: {:errors => "Error", :message => @employee.errors.full_messages }
+			render_errors(Api::ApiController::INVALID, @employee.errors)
 		end
 	end
 
@@ -13,27 +13,31 @@ class Api::V1::EmployeesController < Api::V1::ApiController
 		@employee = get_entity Employee.find_by_id(params[:id])
 		@employee.update_attributes(employee_profile_parameters)
 		if @employee.save
-			render json: {:status => "success", :employee => @employee }
+			render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :employee => @employee }, :status_code => 200
 		else
-			render json: {:errors => "Error", :message => @employee.errors.full_messages }
+			render_errors(Api::ApiController::INVALID, @employee.errors)
 		end
 	end
 
 	def show
-		@employee = get_entity Employee.find_by_id(params[:id])
-		render json: {:status => "success", :employee => @employee }
+		id,secure_id = params[:eid][0...-4],params[:eid][-4,4]
+		@employee = get_entity Employee.find_by_id(id)
+
+		unless @employee.secure_id == secure_id
+			raise Errors::NotFound
+		end
 	end
 
 	def all_employees
 		@employees = current_user.employees
-		render json: {:status => "success", :employees => @employees }
+		render_errors(Api::ApiController::INVALID, @employee.errors)
 	end
 
 
 	def destroy
 		@employee = get_entity Employee.find_by_id(params[:id])
 		@employee.destroy
-		render json: {:status => "success", :department => "Employee deleted successfully." }
+		render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :message => "Employee deleted successfully." }, :status_code => 200
 	end
 
 	private

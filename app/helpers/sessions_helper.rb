@@ -34,4 +34,12 @@ module SessionsHelper
       redirect_to root_path
     end
   end
+
+  def check_access_token
+    @user = get_entity User.find_by_id(params[:id])
+    unless @user.access_token == params[:access_token]
+      raise Errors::NotFound
+    end
+  end
+
 end

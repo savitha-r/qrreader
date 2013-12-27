@@ -1,11 +1,11 @@
-class Api::V1::SessionsController < Api::V1::ApiController
+class Api::V1::SessionsController < Api::ApiController
 
-	before_filter :signed_in_user, :except => [:sign_in]
 
 	def sign_in
 		@member = get_entity User.find_by_email(params[:email])
 		if @member.authenticate(params[:password])
 			login(@member)
+			@member.assign_access_token
 			render json: {:status => "success", :member => @member }
 		else
 			render :json => { :errors => "User authenticate unsuccessful." }

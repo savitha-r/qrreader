@@ -30,6 +30,11 @@ class User < ActiveRecord::Base
     	self.role = "member"
     end
 
+    def assign_access_token
+        self.access_token = SecureRandom.hex
+        self.save
+    end
+
 
 
 end

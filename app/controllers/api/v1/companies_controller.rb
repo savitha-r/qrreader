@@ -1,13 +1,13 @@
-class Api::V1::CompaniesController < Api::V1::ApiController
+class Api::V1::CompaniesController < Api::ApiController
 
 	before_filter :has_no_company, :only => [:new, :create]
 
 	def create
 		@company = current_user.build_company(company_profile_parameters)
 		if @company.save
-			render json: {:status => "success", :company => @company }
+			render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :company => @company }, :status_code => 200
 		else
-			render json: {:errors => "Error", :message => @company.errors.full_messages }
+			render_errors(Api::ApiController::INVALID, @company.errors)
 		end
 	end
 
@@ -15,15 +15,15 @@ class Api::V1::CompaniesController < Api::V1::ApiController
 		@company = current_user.company
 		@company.update_attributes(company_profile_parameters)
 		if @company.save
-			render json: {:status => "success", :company => @company }
+			render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :company => @company }, :status_code => 200
 		else
-			render json: {:errors => "Error", :message => @company.errors.full_messages }
+			render_errors(Api::ApiController::INVALID, @company.errors)
 		end
 	end
 
 	def show
 		@company = get_entity current_user.company
-		render json: {:status => "success", :company => @company }
+		render json: {:status_code => Api::ApiController::SUCCESS, :status => "success", :company => @company }, :status_code => 200
 	end
 
 	private
